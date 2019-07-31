@@ -1,6 +1,15 @@
 version: 2
+jobs:
+  build-and-test:
+    macos:
+      xcode: "10.2.1"
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - run: xcodebuild -project Cirlcle_CI_Demo.xcodeproj -scheme "Cirlcle_CI_Demo" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=11.3,name=iPhone X" -enableCodeCoverage YES test
+
 workflows:
   version: 2
-  build-and-test:
+  primary:
     jobs:
-      - build-and-test
+      build-and-test
