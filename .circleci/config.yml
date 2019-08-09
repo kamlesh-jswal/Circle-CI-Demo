@@ -1,11 +1,49 @@
-version: 2 # use version 2.0 of CircleCI
-jobs: # a basic unit of work in a run
-  build: # runs not using `Workflows` must have a `build` job as entry point
-    macos:  # indicate that we are using the macOS executor
-      xcode: "10.2.1" # indicate our selected version of Xcode
-    steps: # a series of commands to run
-      - checkout  # pull down code from your version control system.
+# .circleci/config.yml
+
+# Specify the config version - version 2 is latest.
+version: 2
+
+# Define the jobs for the current project.
+jobs:
+  build-and-test:
+
+    # Specify the Xcode version to use.
+    macos:
+      xcode: "10.2.1"
+    working_directory: ~/Cirlcle_CI_Demo
+    environment:
+      FL_OUTPUT_DIR: output
+
+    # Define the steps required to build the project.
+    steps:
+
+      # Get the code from the VCS provider.
+      - checkout
+
+      # - run:
+      #     name: Update Fastlane
+      #     command: sudo gem install fastlane
       - run:
-          # build our application
-          name: Build Application
-          command: xcodebuild
+          name: Install CocoaPods
+          command: pod install
+            # curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+
+
+      # Run tests.
+      - run:
+          name: Run tests
+          command: fastlane scan
+          environment:
+            SCAN_DEVICE: iPhone 6
+            SCAN_SCHEME: Production
+
+      - store_test_results:
+          path: output/scan
+      - store_artifacts:
+          path: output
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-and-test
