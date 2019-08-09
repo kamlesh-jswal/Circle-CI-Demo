@@ -2,11 +2,11 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "9.3.0"
+      xcode: "10.2.1"
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: xcodebuild -project Cheers.xcodeproj -scheme "Cheers-iOS" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=11.3,name=iPhone X" -enableCodeCoverage YES test
+      - run: xcodebuild -project Circle_CI_Demo.xcodeproj -scheme "Circle_CI_Demo" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=11.3,name=iPhone X" -enableCodeCoverage YES test
 
 workflows:
   version: 2
