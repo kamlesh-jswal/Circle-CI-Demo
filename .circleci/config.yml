@@ -6,7 +6,7 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: xcodebuild -project Circle_CI_Demo.xcodeproj -scheme "Circle_CI_Demo" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=11.3,name=iPhone X" -enableCodeCoverage YES test
+      - run: xcodebuild -project Cirlcle_CI_Demo.xcodeproj -scheme "Cirlcle_CI_Demo" -sdk iphonesimulator -destination "platform=iOS Simulator,OS=11.3,name=iPhone X" -enableCodeCoverage YES test
 
 workflows:
   version: 2
