@@ -23,10 +23,6 @@ jobs:
       # - run:
       #     name: Update Fastlane
       #     command: sudo gem install fastlane
-      - run:
-          name: Install CocoaPods
-          command: pod install
-            # curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
 
 
       # Run tests.
